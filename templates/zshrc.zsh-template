@@ -34,3 +34,19 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+zstyle ':completion:*:complete:(cd|pushd):*' tag-order 'local-directories named-directories'
+#отображает, группу директорий в которых произошло автодополнение
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format %d
+CDPATH=".:..:$HOME/yandex_disk/Documents/"
+export CDPATH
+
+setopt autocd
+
+ipmi () {
+    ipmitool -U ADMIN -P ADMIN -I lanplus -H $1.ipmi.yandex-team.ru ${@:2}
+}
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+eval "$(rbenv init -)"

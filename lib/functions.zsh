@@ -15,3 +15,7 @@ function take() {
   cd $1
 }
 
+function sshr() {
+  ssh 2>/dev/null root@$1 $2
+}
+
