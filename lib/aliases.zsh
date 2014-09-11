@@ -23,3 +23,10 @@ alias sl=ls # often screw this up
 alias afind='ack-grep -il'
 alias p='ping ya.ru'
 
+alias people='ssh -A 5.45.192.177'
+
+alias vpnup='sudo openvpn --config /etc/openvpn/openvpn.conf'
+
+alias emacs='vim'
+
+alias suka='sudo'

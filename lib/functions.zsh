@@ -16,6 +16,9 @@ function take() {
 }
 
 function sshr() {
-  ssh 2>/dev/null root@$1 $2
+  ssh 2>/dev/null -l root $*
 }
 
+function vpndown() {
+  sudo kill `cat /var/run/openvpn.pid`
+  }
