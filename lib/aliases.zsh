@@ -30,3 +30,5 @@ alias vpnup='sudo openvpn --config /etc/openvpn/openvpn.conf'
 alias emacs='vim'
 
 alias suka='sudo'
+
+alias dch='dch --distributor=debian'
