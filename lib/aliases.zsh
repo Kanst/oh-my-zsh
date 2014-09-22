@@ -31,4 +31,3 @@ alias emacs='vim'
 
 alias suka='sudo'
 
-alias dch='dch --distributor=debian'
