@@ -53,3 +53,5 @@ ipmi () {
 
 export DEBFULLNAME="Ivan Ivanov"
 export DEBEMAIL="mylogin@yandex-team.ru"
+
+export SHMUX_SSH_OPTS='-qxa'
