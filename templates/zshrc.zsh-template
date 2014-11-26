@@ -51,7 +51,9 @@ ipmi () {
 #eval "$(rbenv init -)"
 #eval "$(rbenv init -)"
 
-export DEBFULLNAME="Ivan Ivanov"
-export DEBEMAIL="mylogin@yandex-team.ru"
+export DEBFULLNAME="Evgeny Avramenko"
+export DEBEMAIL="kanst9@yandex-team.ru"
 
 export SHMUX_SSH_OPTS='-qxa'
+
+
