@@ -22,3 +22,7 @@ function sshr() {
 function vpndown() {
   sudo kill `cat /var/run/openvpn.pid`
   }
+
+function hwclear() {
+  ssh root@$1 rm -f /home/monitor/agents/tmp/mulca_hw_errors.msg.prev 2>/dev/null
+  }
