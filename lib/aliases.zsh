@@ -31,3 +31,4 @@ alias emacs='vim'
 
 alias suka='sudo'
 
+alias deb='debuild && debrelease&& debclean&& debcommit'
