@@ -16,13 +16,22 @@ function take() {
 }
 
 function sshr() {
-  ssh 2>/dev/null -l root $*
+  ssh -l root $*
 }
 
 function vpndown() {
   sudo kill `cat /var/run/openvpn.pid`
-  }
+}
 
 function hwclear() {
   ssh root@$1 rm -f /home/monitor/agents/tmp/mulca_hw_errors.msg.prev 2>/dev/null
-  }
+}
+
+function deb() {
+  if [ -z $1 ] 
+  then
+    debuild && debrelease && debclean&& debcommit;
+  else
+    debuild && debrelease -t $1 && debclean&& debcommit
+  fi
+}
