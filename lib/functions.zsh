@@ -35,3 +35,11 @@ function deb() {
     debuild && debrelease -t $1 && debclean&& debcommit
   fi
 }
+
+j () {
+  local OLDIFS=$IFS
+  IFS=${1:?"Missing separator"} 
+  shift
+  echo "$*"
+  IFS=$OLDIFS 
+}
