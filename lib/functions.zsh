@@ -16,7 +16,13 @@ function take() {
 }
 
 function sshr() {
-  ssh -l root $*
+    storage=`echo $1 |grep -P 's\d+\w+'`
+    if [ -z $storage ]
+    then
+        ssh -l root $*
+    else
+        ssh -l kanst9 $*
+    fi
 }
 
 function vpndown() {
@@ -30,9 +36,9 @@ function hwclear() {
 function deb() {
   if [ -z $1 ] 
   then
-    debuild && debrelease && debclean&& debcommit;
+    debuild && debrelease && debclean&& debcommit -a;
   else
-    debuild && debrelease -t $1 && debclean&& debcommit
+    debuild && debrelease -t $1 && debclean&& debcommit -a
   fi
 }
 
