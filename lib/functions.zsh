@@ -16,7 +16,7 @@ function take() {
 }
 
 function sshr() {
-    storage=`echo $1 |grep -P 's\d+\w+'`
+    storage=`echo $1 |grep -v 'mdst' |grep -P '^s\d+\w+'`
     if [ -z $storage ]
     then
         ssh -l root $*
