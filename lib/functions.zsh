@@ -49,3 +49,12 @@ j () {
   echo "$*"
   IFS=$OLDIFS 
 }
+
+
+function vimr() {
+    export LC_ALL=C
+    n=`echo $1 | awk -F "/" '{print $NF}' | grep -P "^\d+" -o`
+    echo "start `date`" >> ~/yandex_disk/Documents/code/rebrain/time-$n
+    vim $1
+    echo "finish `date`" >> ~/yandex_disk/Documents/code/rebrain/time-$n
+}
