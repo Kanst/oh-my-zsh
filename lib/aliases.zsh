@@ -32,3 +32,6 @@ alias emacs='vim'
 alias suka='sudo'
 
 alias copy='xclip -selection c'
+
+alias arm='cd /arc; arc mount -m arcadia/ -S store/'
+alias mm='cd /arc/arcadia/mds/mastermind/core'
