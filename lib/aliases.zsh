@@ -33,5 +33,8 @@ alias suka='sudo'
 
 alias copy='xclip -selection c'
 
-alias arm='cd /arc; arc mount -m arcadia/ -S store/'
+alias arm='cd /arc; arc mount -m arcadia/ -S store/; cd -'
 alias mm='cd /arc/arcadia/mds/mastermind/core'
+alias mds='cd /arc/arcadia/mds'
+alias vim='/arc/arcadia/ya tool vim'
+alias dctl='/arc/arcadia/ya tool dctl'

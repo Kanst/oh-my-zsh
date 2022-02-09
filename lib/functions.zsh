@@ -19,9 +19,9 @@ function sshr() {
     storage=`echo $1 |grep -v 'mdst' |grep -P '^s\d+\w+'`
     if [ -z $storage ]
     then
-        ssh -l root $*
+        ssh -A -l root $*
     else
-        ssh -l kanst9 $*
+        ssh -A -l kanst9 $*
     fi
 }
 

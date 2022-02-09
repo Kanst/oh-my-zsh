@@ -1,3 +1,4 @@
+ZSH=$HOME/.oh-my-zsh
 # Check for updates on initial load...
 if [ "$DISABLE_AUTO_UPDATE" != "true" ]
 then
@@ -8,6 +9,7 @@ fi
 
 # add a function path
 fpath=($ZSH/functions $ZSH/completions $fpath)
+fpath+=$ZSH/completions
 
 # Load all of the config files in ~/oh-my-zsh that end in .zsh
 # TIP: Add files you don't want in git to .gitignore
