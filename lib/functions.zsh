@@ -16,7 +16,7 @@ function take() {
 }
 
 function sshr() {
-    storage=`echo $1 |grep -v 'mdst' |grep -P '^s\d+\w+'`
+    storage=`echo $1 |grep -v 'mdst' |grep -v mds.nebiuscore.net |grep -P '^s\d+\w+'`
     if [ -z $storage ]
     then
         ssh -A -l root $*
@@ -57,4 +57,12 @@ function vimr() {
     echo "start `date`" >> ~/yandex_disk/Documents/code/rebrain/time-$n
     vim $1
     echo "finish `date`" >> ~/yandex_disk/Documents/code/rebrain/time-$n
+}
+
+function ipmi_max() {
+    IPMIPROXY_API_URL="https://ipmiproxy.max.einebox.net/ipmiproxy/api/v1.0" IPMIPROXY_LOGIN=kanst9  IPMIPROXY_PASSWORD=tool1phee7maa6Ed yaipmi -H $1 ${@:2}
+}
+
+function ipmi_il() {
+    IPMIPROXY_API_URL="https://ipmiproxy.is.einebox.net/ipmiproxy/api/v1.0" IPMIPROXY_LOGIN=kanst9  IPMIPROXY_PASSWORD=tool1phee7maa6Ed yaipmi -H $1 ${@:2}
 }
