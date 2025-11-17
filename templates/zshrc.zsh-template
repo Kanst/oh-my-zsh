@@ -43,6 +43,10 @@ export CDPATH
 
 setopt autocd
 
+ipmi () {
+    ipmitool -U ADMIN -P ADMIN -I lanplus -H $1.ipmi.yandex-team.ru ${@:2}
+}
+
 #export PATH="$HOME/.rbenv/bin:$PATH"
 #eval "$(rbenv init -)"
 #eval "$(rbenv init -)"
@@ -52,4 +56,28 @@ export DEBEMAIL="kanst9@yandex-team.ru"
 
 export SHMUX_SSH_OPTS='-qxa'
 
+export YT_PROXY=hahn
 
+fpath+=~/.zfunc
+
+# The next line updates PATH for Yandex Cloud CLI.
+if [ -f '/home/kanst9/yandex-cloud/path.bash.inc' ]; then source '/home/kanst9/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '/home/kanst9/yandex-cloud/completion.zsh.inc' ]; then source '/home/kanst9/yandex-cloud/completion.zsh.inc'; fi
+
+
+
+
+# The next line updates PATH for Yandex Cloud Private CLI.
+if [ -f '/home/kanst9/ycp/path.bash.inc' ]; then source '/home/kanst9/ycp/path.bash.inc'; fi
+alias ya='/arc/arcadia/ya'
+
+eval "$(atuin init zsh --disable-up-arrow)"
+export YA_USER=kanst9
+export YA_TOKEN=AQAD-qJSJkZtAAAPMM8AUPHaJ0qytOD3f5ecW1E
+
+export PATH=$PATH:/usr/local/go/bin
+
+# alias sky='ya tool sky'
+# eval "$(sky completion --zsh)"
