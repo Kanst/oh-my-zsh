@@ -66,3 +66,16 @@ function ipmi_max() {
 function ipmi_il() {
     IPMIPROXY_API_URL="https://ipmiproxy.is.einebox.net/ipmiproxy/api/v1.0" IPMIPROXY_LOGIN=kanst9  IPMIPROXY_PASSWORD=tool1phee7maa6Ed yaipmi -H $1 ${@:2}
 }
+
+mdsp() {
+  ya tool mds --profile prod "$@"
+}
+mdspre() {
+  ya tool mds --profile prestable "$@"
+}
+mdst() {
+  ya tool mds --profile testing "$@"
+}
+compdef _mds mdsp
+compdef _mds mdspre
+compdef _mds mdst

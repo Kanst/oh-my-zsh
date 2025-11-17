@@ -1,0 +1,62 @@
+#!/bin/bash
+# sky completion
+
+_get_sky_pos() {
+  sky --help 2>&1 >/dev/null | grep -E -o '^[ ]+[a-z]+' | xargs
+}
+
+_get_sky_opt() {
+  sky "$1" --help 2>&1 >/dev/null | grep -E -o ' \--[a-z_-]+' | xargs
+}
+
+_get_sky_selector() {
+    sky suggest-completion "$1" | xargs
+}
+
+_get_sky_prefix() {
+    sky suggest-selector "$1" | xargs
+}
+
+
+_sky()
+{
+  cur="${COMP_WORDS[COMP_CWORD]}"
+
+  if [[ ${COMP_CWORD} == 1 ]]; then
+    _subcommands="$(_get_sky_opt) "
+    _subcommands+="$(_get_sky_pos)"
+    COMPREPLY=( $(compgen -W "${_subcommands}" -- ${cur}) )
+    return 0
+  fi
+
+  subcmd_1="${COMP_WORDS[1]}"
+  case "${subcmd_1}" in
+    erun)
+        # sky erun h@...
+        if [ "${COMP_CWORD}" -eq "2" ]; then
+            case "$cur" in
+                *@*)
+                    _selectors="$(_get_sky_selector "$cur")"
+                    COMPREPLY=($(compgen -W "${_selectors}"))
+                    compopt +o default -o nospace
+                    ;;
+                *)
+                    _selectors="$(_get_sky_prefix "$cur")"
+                    COMPREPLY=($(compgen -W "${_selectors}"))
+                    compopt -o nospace
+                    ;;
+            esac
+            return 0
+        fi
+        ;&
+    *)
+      _subcommands="$(_get_sky_opt "$subcmd_1") "
+      COMPREPLY=($(compgen -W "${_subcommands}" -- ${cur}))
+      return 0
+      ;;
+  esac
+
+}
+
+complete -F _sky -o default sky
+

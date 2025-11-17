@@ -1,0 +1,129 @@
+#compdef sky
+
+# setopt nonomatch
+
+_get_sky_pos() {
+    sky --help 2>&1 >/dev/null | grep -E -o '^[ ]+[a-z][a-z-]+' | xargs
+}
+_get_sky_opt() {
+    sky "$1" --help 2>&1 >/dev/null | grep -E -o ' \--[a-z_-]+' | xargs
+}
+_get_sky_selector() {
+    sky suggest-completion "$1" | xargs
+}
+_get_sky_prefix() {
+    sky suggest-selector "$1" | xargs
+}
+
+_sky() {
+    local cur subcmd_1 _subcommands _selectors prev_word prev_cword noescape
+
+    if [[ -o nonomatch ]]; then
+        noescape="-Q"
+    fi
+
+    setopt localoptions nonomatch
+
+    # Zsh: массив words, индекс CURRENT
+    cur=${words[CURRENT]}  # текущий (недописанный) аргумент
+
+    # _message "current $CURRENT word '$cur'"
+
+    # Если это первый аргумент после "sky"
+    if (( CURRENT == 2 )); then
+        # _message "first argument, opts and subcommands"
+        compadd -- ${=$(_get_sky_opt)}
+        compadd -- ${=$(_get_sky_pos)}
+        return
+    fi
+
+    subcmd_1="${words[2]}"
+
+    case "${subcmd_1}" in
+        list)
+            # sky list h@...
+            case "$cur" in
+                *@*)
+                    _selectors="$(_get_sky_selector "$cur")"
+                    # _message "selectors ${_selectors[@]}"
+                    compadd -S '' $noescape -- ${=_selectors}
+                    return
+                    ;;
+                *)
+                    _selectors=${=$(_get_sky_prefix "$cur")}
+                    # _message "prefixes ${_selectors[@]}"
+                    compadd -S '' $noescape -- ${=_selectors}
+
+                    _selectors=${=$(_get_sky_opt "$subcmd_1")}
+                    compadd -- ${=_selectors}
+                    return
+                    ;;
+            esac
+            ;|
+        run)
+            # sky run ... h@...
+            if (( CURRENT == ${#words[@]} ));
+            then
+                case "$cur" in
+                    *@*)
+                        _selectors="$(_get_sky_selector "$cur")"
+                        # _message "selectors ${_selectors[@]}"
+                        compadd -S '' $noescape -- ${=_selectors}
+                        return
+                        ;;
+                    *)
+                        _selectors=${=$(_get_sky_prefix "$cur")}
+                        # _message "prefixes ${_selectors[@]}"
+                        compadd -S '' $noescape -- ${=_selectors}
+
+                        _selectors=${=$(_get_sky_opt "$subcmd_1")}
+                        compadd -- ${=_selectors}
+                        return
+                        ;;
+                esac
+            fi
+            ;|
+        erun)
+            # sky erun h@...
+            # _message "erun sel@ctor cmd..."
+            if (( CURRENT > 3 )); then
+                prev_cword=$((CURRENT-1))
+                for idx in {3..$prev_cword}; do
+                    prev_word="${words[$idx]}"
+                    case "$prev_word" in
+                        *@*)
+                            return
+                            ;;
+                    esac
+                done
+            fi
+
+            case "$cur" in
+                *@*)
+                    _selectors="$(_get_sky_selector "$cur")"
+                    # _message "selectors ${_selectors[@]}"
+                    compadd -S '' $noescape -- ${=_selectors}
+                    return
+                    ;;
+                *)
+                    _selectors=${=$(_get_sky_prefix "$cur")}
+                    # _message "prefixes ${_selectors[@]}"
+                    compadd -S '' $noescape -- ${=_selectors}
+
+                    _selectors=${=$(_get_sky_opt "$subcmd_1")}
+                    compadd -- ${=_selectors}
+                    return
+                    ;;
+            esac
+            ;|
+        *)
+            # _message "subcommand $subcmd_1 opts"
+            _subcommands="$(_get_sky_opt "$subcmd_1") "
+            compadd -- ${=_subcommands}
+            return
+            ;;
+    esac
+}
+
+compdef _sky sky
+
