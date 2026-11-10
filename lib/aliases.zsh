@@ -39,7 +39,6 @@ alias m='cd /arc/arcadia/mds'
 alias salt='cd /arc/arcadia/admins/salt-media/storage'
 # alias vim='/arc/arcadia/ya tool vim'
 alias dctl='/arc/arcadia/ya tool dctl'
-alias rebase='arc pull trunk; arc rebase trunk'
 alias sky='ya tool sky'
 alias mds='ya tool mds'
 # alias mdst="ya tool mds --profile=testing"
